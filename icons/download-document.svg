@@ -1,0 +1,7 @@
+<svg id="Gerar_relatório_pequeno_-_Fábrica" data-name="Gerar relatório pequeno - Fábrica" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="Retângulo_146" data-name="Retângulo 146" fill="#FFFFFF00" >
+    <rect width="32" height="32" rx="4" stroke="none"/>
+    <rect x="0.5" y="0.5" width="31" height="31" rx="3.5" fill="none"/>
+  </g>
+  <path id="Icon_awesome-file-upload" data-name="Icon awesome-file-upload" d="M7,4.25V0H.75A.748.748,0,0,0,0,.75v14.5A.748.748,0,0,0,.75,16h10.5a.748.748,0,0,0,.75-.75V5H7.75A.752.752,0,0,1,7,4.25ZM9.037,11H7v2.5a.5.5,0,0,1-.5.5h-1a.5.5,0,0,1-.5-.5V11H2.963a.5.5,0,0,1-.352-.855L5.624,7.155a.533.533,0,0,1,.751,0l3.013,2.991A.5.5,0,0,1,9.037,11Zm2.744-7.719L8.722.219A.749.749,0,0,0,8.191,0H8V4h4V3.809A.748.748,0,0,0,11.781,3.281Z" transform="translate(10 8)" fill="#0067a6"/>
+</svg>

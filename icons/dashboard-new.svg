@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.333 15.333">
+  <g id="Dashboard" transform="translate(-1.333 -1.333)">
+    <path class="dashboard-path" id="Caminho_649" data-name="Caminho 649" d="M2,2H7.444V7.444H2Z" transform="translate(0 0)" fill="none" stroke="#272727" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.333"/>
+    <path class="dashboard-path" id="Caminho_650" data-name="Caminho 650" d="M9.333,2h5.444V7.444H9.333Z" transform="translate(1.222 0)" fill="none" stroke="#272727" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.333"/>
+    <path class="dashboard-path" id="Caminho_651" data-name="Caminho 651" d="M9.333,9.333h5.444v5.444H9.333Z" transform="translate(1.222 1.222)" fill="none" stroke="#272727" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.333"/>
+    <path class="dashboard-path" id="Caminho_652" data-name="Caminho 652" d="M2,9.333H7.444v5.444H2Z" transform="translate(0 1.222)" fill="none" stroke="#272727" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.333"/>
+  </g>
+</svg>
