@@ -141,7 +141,7 @@ const Notification: React.FC = () => {
     dispatch(saveUserPreferences({ userId, preferences: updatedPreferences }))
       .unwrap()
       .catch((error: string) => {
-        console.log(`Error saving preferences: ${error}`)
+        console.log(`Error saving preferences:${error}`)
       })
       .then(() => {
         setShowConfigModal(false)
