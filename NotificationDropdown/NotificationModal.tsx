@@ -97,7 +97,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
       title={
         <ModalTitleContent>
           <NotificationItemIcon>
-            {getIconByType(notification.notificationType, notification.read)}
+            {getIconByType(notification.notificationType, false)}
           </NotificationItemIcon>
           <ModalTitle>
             {notification.title || 'Notification Details'}

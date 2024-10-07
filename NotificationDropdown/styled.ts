@@ -161,6 +161,10 @@ export const ModalButton = styled.button`
   border-color: transparent;
   padding: 0.25rem 2rem;
   cursor: pointer;
+  a {
+    text-decoration: none;
+    color: #f2f7fb;
+  }
 `
 export const ToggleContainer = styled.div`
   margin: 10px 0;
