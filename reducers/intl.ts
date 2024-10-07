@@ -7,6 +7,8 @@ interface InitialState {
   dictionary?: Dictionary;
 }
 
+const DICTIONARY_URL = import.meta.env.VITE_DICTIONARY_URL || 'http://192.168.23.98:4000' || 'http://127.0.0.1:4000'
+
 let dictionaryName = localStorage.getItem('language');
 
 if (!dictionaryName) {
@@ -35,7 +37,7 @@ const initialState: InitialState = {
 // Função para carregar o dicionário dinamicamente com base no nome do idioma
 const loadDictionary = async (name: string): Promise<Dictionary> => {
   try {
-    const response = await fetch(`http://192.168.48.138:4000/dicionarios/${name}.json`);
+    const response = await fetch(`${DICTIONARY_URL}/${name}.json`);
     if (!response.ok) {
       throw new Error(`Failed to load dictionary ${name}`);
     }
