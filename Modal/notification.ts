@@ -169,7 +169,7 @@ export const fetchUserPreferences = (userId: any) => async (dispatch: any) => {
     const preferences: UserPreferences = {
       produtividade: data.includes('alertProductivity'),
       comunicacao: data.includes('alertCommunication'),
-      promocoes: data.includes('promotions')
+      promocoes: data.includes('alertPromotion')
     }
 
     dispatch(notificationActions.setUserPreferences(preferences)) // Envia a ação para atualizar o estado

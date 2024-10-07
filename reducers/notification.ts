@@ -52,10 +52,9 @@ const mapPreferencesToArray = (preferences: UserPreferences): string[] => {
 
   if (preferences.produtividade) preferencesArray.push('alertProductivity')
   if (preferences.comunicacao) preferencesArray.push('alertCommunication')
-  if (preferences.promocoes) preferencesArray.push('promotions')
+  if (preferences.promocoes) preferencesArray.push('alertPromotion')
 
-  // Exemplo: Pode adicionar logicamente outros tipos de alertas obrigatórios
-  preferencesArray.push('alertAlarm') // Supondo que sempre incluímos o 'alertAlarm'
+  preferencesArray.push('alertAlarm')
 
   return preferencesArray
 }

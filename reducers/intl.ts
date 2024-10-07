@@ -7,7 +7,7 @@ interface InitialState {
   dictionary?: Dictionary;
 }
 
-const DICTIONARY_URL = import.meta.env.VITE_DICTIONARY_URL || 'http://192.168.48.138/:4000' || 'http://127.0.0.1:4000'
+const DICTIONARY_URL = import.meta.env.VITE_DICTIONARY_URL || 'http://127.0.0.1:4000'
 
 let dictionaryName = localStorage.getItem('language');
 

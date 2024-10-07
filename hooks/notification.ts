@@ -36,7 +36,7 @@ interface UserPreferences {
   promocoes: boolean
 }
 
-const userId = '23031972-9a89-4d8e-b789-4d892e4a5d08'
+const userId = '1ada6ffc-0215-4b22-8902-e50772ad4f2f'
 
 type NotificationTextCategory = Record<string, NotificationText>
 
@@ -169,7 +169,7 @@ export const fetchUserPreferences = (userId: any) => async (dispatch: any) => {
     const preferences: UserPreferences = {
       produtividade: data.includes('alertProductivity'),
       comunicacao: data.includes('alertCommunication'),
-      promocoes: data.includes('promotions')
+      promocoes: data.includes('alertPromotion')
     }
 
     dispatch(notificationActions.setUserPreferences(preferences)) // Envia a ação para atualizar o estado
@@ -236,34 +236,37 @@ export const mergeNotificationsWithTexts = (
 ): Notification[] => {
   return notifications.map((notification) => {
     const notificationId =
-      notification.notificationId || notification.notification_id
+      notification.notificationId || notification.notification_id;
     const notificationClass =
-      notification.notificationClass || notification.notification_class
+      notification.notificationClass || notification.notification_class;
     const notificationPriority =
       typeof notification.priority === 'number'
         ? notification.priority
-        : parseInt(notification.priority, 10) || 0
-    const userId = notification.userId || notification.user_id
-    const read = !!notification.read // Assegura que seja booleano
+        : parseInt(notification.priority, 10) || 0;
+    const userId = notification.userId || notification.user_id;
+    const read = !!notification.read; // Assegura que seja booleano
     const date =
       typeof notification.date === 'number'
         ? notification.date
-        : new Date(notification.date).getTime()
-    const add = parseAddField(notification.add)
+        : new Date(notification.date).getTime();
+
+    // Verificação se "add" não é null
+    const add = notification.add ? parseAddField(notification.add) : null;
 
     const textData = Object.values(notificationTexts || {})
       .flatMap((category: any) => Object.entries(category || {}))
-      .find(([key]) => key === notificationClass)?.[1]
+      .find(([key]) => key === notificationClass)?.[1];
 
     if (textData) {
+      // Substituições com verificação se "add" é válido
       const body = textData.body
-        .replace('{maquina}', `<b>${add.assetNickname}</b>` || '')
-        .replace('{data}', add.data || '')
-        .replace('{data[0]}', add.data[0] || '')
-        .replace('{data[1]}', add.data[1] || '')
-        .replace('{data[2]}', add.data[2] || '')
-        .replace('{data[3]}', add.data[3] || '')
-        .replace('{data[4]}', add.data[4] || '')
+        .replace('{maquina}', add?.assetNickname ? `<b>${add.assetNickname}</b>` : '')
+        .replace('{data}', add?.data ? add.data.join(', ') : '')
+        .replace('{data[0]}', add?.data?.[0] || '')
+        .replace('{data[1]}', add?.data?.[1] || '')
+        .replace('{data[2]}', add?.data?.[2] || '')
+        .replace('{data[3]}', add?.data?.[3] || '')
+        .replace('{data[4]}', add?.data?.[4] || '');
 
       return {
         notificationId,
@@ -273,12 +276,12 @@ export const mergeNotificationsWithTexts = (
         priority: notificationPriority,
         date,
         read,
-        add,
+        add, // Pode ser null, mas é tratado acima
         title: textData.title,
         body,
         textButton: textData.textButton || null,
         linkButton: textData.linkButton || null
-      }
+      };
     }
 
     return {
@@ -289,11 +292,11 @@ export const mergeNotificationsWithTexts = (
       priority: notificationPriority,
       date,
       read,
-      add,
+      add, // Mesmo que add seja null, ele será tratado corretamente
       title: 'Título não disponível',
       body: null,
       textButton: null,
       linkButton: null
-    }
-  })
-}
+    };
+  });
+};

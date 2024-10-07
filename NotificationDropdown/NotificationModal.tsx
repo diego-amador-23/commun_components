@@ -34,7 +34,7 @@ interface NotificationModalProps {
 type NotificationType =
   | 'alertAlarm'
   | 'alertProductivity'
-  | 'promotions'
+  | 'alertPromotion'
   | 'alertCommunication'
 
 export const getIconByType = (
@@ -63,7 +63,7 @@ export const getIconByType = (
       return renderIcon(WarningIcon, colors.danger.solid)
     case 'alertProductivity':
       return renderIcon(ProdIcon, colors.default.solid)
-    case 'promotions':
+    case 'alertPromotion':
       return renderIcon(PromoIcon, colors.rental.default)
     case 'alertCommunication':
       return renderIcon(InfoIcon, colors.default.solid)
