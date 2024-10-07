@@ -60,11 +60,11 @@ const Notification: React.FC = () => {
   const [produtividade, setProdutividade] = useState(false)
   const [comunicacao, setComunicacao] = useState(false)
   const [promocoes, setPromocoes] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const dropdownRef = useRef<HTMLDivElement>(null)
   const dispatch = useDispatch<AppDispatch>()
   const notifications = useSelector(notificationSelectors.notifications)
-  const loading = useSelector(notificationSelectors.loading)
 
   // Redux state selectors
   const preferences = useSelector(notificationSelectors.preferences)
@@ -135,16 +135,16 @@ const Notification: React.FC = () => {
 
   // Save user preferences
   const handleSaveConfig = () => {
+    setLoading(true)
     const updatedPreferences = { produtividade, comunicacao, promocoes }
 
     dispatch(saveUserPreferences({ userId, preferences: updatedPreferences }))
       .unwrap()
-      .then(() => {
-        alert('Preferences saved successfully!')
-        setShowConfigModal(false)
-      })
       .catch((error: string) => {
-        alert(`Error saving preferences: ${error}`)
+        console.log(`Error saving preferences: ${error}`)
+      })
+      .then(() => {
+        setShowConfigModal(false)
       })
   }
 
