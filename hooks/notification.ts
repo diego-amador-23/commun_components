@@ -1,40 +1,13 @@
 import { notificationActions } from '../reducers/notification'
-import { RootState } from '../../src/store' // Ajuste o caminho conforme sua estrutura
+import { RootState } from '../../src/store'
+import {
+  Notification,
+  NotificationText,
+  UserPreferences
+} from '../types/notificationTypes'
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || 'http://192.168.23.98:3000'
-
-interface Notification {
-  notificationId: string
-  notificationType: string
-  notificationClass: string
-  userId: string
-  priority: number
-  date: number
-  read: boolean
-  add: {
-    assetId?: string
-    assetNickname: string
-    data: string[]
-  }
-  title: string
-  body?: string | null | undefined
-  textButton?: string | null
-  linkButton?: string | null
-}
-
-interface NotificationText {
-  title: string
-  body: string
-  textButton: string | null
-  linkButton: string | null
-}
-
-interface UserPreferences {
-  produtividade: boolean
-  comunicacao: boolean
-  promocoes: boolean
-}
 
 const userId = '1ada6ffc-0215-4b22-8902-e50772ad4f2f'
 
@@ -189,14 +162,14 @@ export const fetchNotificationsAndPreferences =
       dispatch(notificationActions.setLoading(true))
 
       const state = getState()
-      const userID = state.notifications.userId || userId // Pegando o userId do Redux ou usando o default
+      const userID = state.notifications.userId || userId // Ensure userId is obtained
       const baseUrl = API_BASE_URL
 
-      // Obtém o idioma do Redux ou do navegador
+      // Obtain the language from the Redux store or the browser
       const language =
         state.intl.dictionaryName || navigator.language || 'pt-BR'
 
-      await dispatch(fetchUserPreferences())
+      await dispatch(fetchUserPreferences(userID))
 
       const [notifications, notificationTexts] = await Promise.all([
         loadNotifications(baseUrl, userID),
@@ -235,38 +208,44 @@ export const mergeNotificationsWithTexts = (
   notificationTexts: NotificationTexts
 ): Notification[] => {
   return notifications.map((notification) => {
-    const notificationId =
-      notification.notificationId || notification.notification_id;
-    const notificationClass =
-      notification.notificationClass || notification.notification_class;
+    const notificationId = notification.notificationId
+    const notificationClass = notification.notificationClass
     const notificationPriority =
       typeof notification.priority === 'number'
         ? notification.priority
-        : parseInt(notification.priority, 10) || 0;
-    const userId = notification.userId || notification.user_id;
-    const read = !!notification.read; // Assegura que seja booleano
+        : parseInt(notification.priority, 10) || 0
+    const userId = notification.userId
+    const read = !!notification.read // Ensure it's a boolean
     const date =
       typeof notification.date === 'number'
         ? notification.date
-        : new Date(notification.date).getTime();
+        : new Date(notification.date).getTime()
 
-    // Verificação se "add" não é null
-    const add = notification.add ? parseAddField(notification.add) : null;
+    // Check if "add" is not null
+    const add = notification.add ? parseAddField(notification.add) : null
 
-    const textData = Object.values(notificationTexts || {})
-      .flatMap((category: any) => Object.entries(category || {}))
-      .find(([key]) => key === notificationClass)?.[1];
+    // Find the correct notification text data
+    const textData: NotificationText | undefined = Object.values(
+      notificationTexts || {}
+    )
+      .flatMap((category: NotificationTextCategory) =>
+        Object.entries(category || {})
+      )
+      .find(([key]) => key === notificationClass)?.[1] as NotificationText
 
+    // Check if textData is defined
     if (textData) {
-      // Substituições com verificação se "add" é válido
       const body = textData.body
-        .replace('{maquina}', add?.assetNickname ? `<b>${add.assetNickname}</b>` : '')
+        ?.replace(
+          '{maquina}',
+          add?.assetNickname ? `<b>${add.assetNickname}</b>` : ''
+        )
         .replace('{data}', add?.data ? add.data.join(', ') : '')
         .replace('{data[0]}', add?.data?.[0] || '')
         .replace('{data[1]}', add?.data?.[1] || '')
         .replace('{data[2]}', add?.data?.[2] || '')
         .replace('{data[3]}', add?.data?.[3] || '')
-        .replace('{data[4]}', add?.data?.[4] || '');
+        .replace('{data[4]}', add?.data?.[4] || '')
 
       return {
         notificationId,
@@ -277,11 +256,11 @@ export const mergeNotificationsWithTexts = (
         date,
         read,
         add, // Pode ser null, mas é tratado acima
-        title: textData.title,
-        body,
+        title: textData.title || 'No title available', // Check if title exists
+        body: body || null, // Default to null if no body
         textButton: textData.textButton || null,
         linkButton: textData.linkButton || null
-      };
+      }
     }
 
     return {
@@ -292,11 +271,11 @@ export const mergeNotificationsWithTexts = (
       priority: notificationPriority,
       date,
       read,
-      add, // Mesmo que add seja null, ele será tratado corretamente
-      title: 'Título não disponível',
+      add,
+      title: 'No title available',
       body: null,
       textButton: null,
       linkButton: null
-    };
-  });
-};
+    }
+  })
+}
