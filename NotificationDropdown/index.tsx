@@ -38,7 +38,6 @@ interface Notification {
   body: string
   priority: number
   date: number
-  isFeedback?: boolean
 }
 
 const Notification: React.FC = () => {

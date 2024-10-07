@@ -1,39 +1,10 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchUserPreferences } from '../hooks/notification'
-
-// Tipos
-interface Notification {
-  notificationId: string
-  notificationType: string
-  notificationClass: string
-  userId: string
-  priority: number
-  date: number
-  read: boolean
-  add: {
-    assetId?: string
-    assetNickname: string
-    data: string[]
-  }
-  title: string
-  body?: string | null | undefined
-  textButton?: string | null
-  linkButton?: string | null
-}
-
-interface UserPreferences {
-  produtividade: boolean
-  comunicacao: boolean
-  promocoes: boolean
-}
-
-interface NotificationState {
-  notifications: Notification[]
-  preferences: UserPreferences | null
-  userId: string | null
-  loading: boolean
-  error: string | null
-}
+import {
+  Notification,
+  UserPreferences,
+  NotificationState
+} from '../types/notificationTypes'
 
 const initialState: NotificationState = {
   notifications: [],
