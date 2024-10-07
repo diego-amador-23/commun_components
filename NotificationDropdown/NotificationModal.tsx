@@ -60,7 +60,7 @@ export const getIconByType = (
 
   switch (notificationType) {
     case 'alertAlarm':
-      return renderIcon(WarningIcon, colors.danger.solid)
+      return renderIcon(WarningIcon, '#991435')
     case 'alertProductivity':
       return renderIcon(ProdIcon, colors.default.solid)
     case 'alertPromotion':
