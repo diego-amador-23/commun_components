@@ -60,7 +60,7 @@ export const getIconByType = (
 
   switch (notificationType) {
     case 'alertAlarm':
-      return renderIcon(WarningIcon, colors.danger.solid)
+      return renderIcon(WarningIcon, '#991435')
     case 'alertProductivity':
       return renderIcon(ProdIcon, colors.default.solid)
     case 'alertPromotion':
@@ -97,7 +97,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
       title={
         <ModalTitleContent>
           <NotificationItemIcon>
-            {getIconByType(notification.notificationType, notification.read)}
+            {getIconByType(notification.notificationType, false)}
           </NotificationItemIcon>
           <ModalTitle>
             {notification.title || 'Notification Details'}
