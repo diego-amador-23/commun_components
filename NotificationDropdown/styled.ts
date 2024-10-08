@@ -56,6 +56,10 @@ export const Dropdown = styled.div`
     border-color: transparent transparent ${colors.default.solid} transparent;
   }
   @media (max-width: 768px) {
+    right: -72px;
+    &::before {
+      right: 72px;
+    }
   }
 `
 export const NotificationTitle = styled.h3`
