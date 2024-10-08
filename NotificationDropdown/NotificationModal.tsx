@@ -13,29 +13,13 @@ import {
   ModalId
 } from './styled'
 import { colors } from '../styleGuide'
-
-interface Notification {
-  notificationId: string
-  title: string
-  body?: string
-  notificationType: NotificationType
-  read: boolean
-  date: number
-  linkButton?: string
-  textButton?: string
-}
+import { Notification, NotificationType } from '../types/notificationTypes'
 
 interface NotificationModalProps {
   show: boolean
   onClose: () => void
   notification: Notification
 }
-
-type NotificationType =
-  | 'alertAlarm'
-  | 'alertProductivity'
-  | 'alertPromotion'
-  | 'alertCommunication'
 
 export const getIconByType = (
   notificationType: NotificationType,
@@ -45,13 +29,12 @@ export const getIconByType = (
     read ? '#d3d3d3' : defaultColor
 
   const renderIcon = (
-    Icon: React.ComponentType,
+    Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>, // Define o tipo de ícones que podem ser passados
     color: string
   ): React.ReactElement => (
     <Icon
       style={{
         fill: getColor(color),
-        color: getColor(color),
         width: '2.2rem',
         height: '2.2rem'
       }}

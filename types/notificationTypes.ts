@@ -1,6 +1,6 @@
 export interface Notification {
   notificationId: string
-  notificationType: string
+  notificationType: NotificationType
   notificationClass: string
   userId: string
   priority: number
@@ -17,6 +17,11 @@ export interface Notification {
   linkButton?: string | null
   isFeedback?: boolean
 }
+export type NotificationType =
+  | 'alertAlarm'
+  | 'alertProductivity'
+  | 'alertPromotion'
+  | 'alertCommunication'
 
 export interface NotificationText {
   title: string

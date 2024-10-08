@@ -30,15 +30,7 @@ import Modal from '../Modal/Modal'
 import { AppDispatch } from '../../src/store'
 import _ from 'lodash'
 import NotificationModal from './NotificationModal'
-
-interface Notification {
-  notificationId: string
-  title: string
-  read: boolean
-  body: string
-  priority: number
-  date: number
-}
+import type { Notification } from '../types/notificationTypes'
 
 const Notification: React.FC = () => {
   // Format date utility function
@@ -75,15 +67,13 @@ const Notification: React.FC = () => {
   // Helper variables
   const hasNotifications = notifications && notifications.length > 0
   const hasUnreadNotifications = notifications.some(
-    (notification) => !notification.read
+    (notification: { read: boolean }) => !notification.read
   )
   const isButtonDisabled = loading || !hasNotifications
 
   // Fetch notifications and user preferences on component mount
   useEffect(() => {
-    dispatch(
-      notificationActions.setUserId('23031972-9a89-4d8e-b789-4d892e4a5d08')
-    )
+    dispatch(notificationActions.setUserId(userId))
     dispatch(fetchNotifications())
     if (userId) dispatch(fetchUserPreferences(userId))
   }, [dispatch, userId])
@@ -139,11 +129,20 @@ const Notification: React.FC = () => {
 
     dispatch(saveUserPreferences({ userId, preferences: updatedPreferences }))
       .unwrap()
-      .catch((error: string) => {
-        console.log(`Error saving preferences:${error}`)
-      })
       .then(() => {
-        setShowConfigModal(false)
+        // Aguarda 2 segundos antes de fechar o modal
+        setTimeout(() => {
+          setShowConfigModal(false)
+        }, 1500)
+      })
+      .catch((error: string) => {
+        console.log(`Error saving preferences: ${error}`)
+      })
+      .finally(() => {
+        // Aguarda 2 segundos para desativar o estado de loading
+        setTimeout(() => {
+          setLoading(false)
+        }, 1500)
       })
   }
 
