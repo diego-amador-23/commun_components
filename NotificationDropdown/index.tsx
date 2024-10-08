@@ -130,19 +130,17 @@ const Notification: React.FC = () => {
     dispatch(saveUserPreferences({ userId, preferences: updatedPreferences }))
       .unwrap()
       .then(() => {
-        // Aguarda 2 segundos antes de fechar o modal
         setTimeout(() => {
           setShowConfigModal(false)
-        }, 1500)
+        }, 500)
       })
       .catch((error: string) => {
         console.log(`Error saving preferences: ${error}`)
       })
       .finally(() => {
-        // Aguarda 2 segundos para desativar o estado de loading
         setTimeout(() => {
           setLoading(false)
-        }, 1500)
+        }, 500)
       })
   }
 
