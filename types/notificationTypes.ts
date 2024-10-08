@@ -15,6 +15,7 @@ export interface Notification {
   body?: string | null | undefined
   textButton?: string | null
   linkButton?: string | null
+  isFeedback?: boolean
 }
 
 export interface NotificationText {
