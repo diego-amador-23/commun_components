@@ -8,7 +8,7 @@ interface InitialState {
 }
 
 const DICTIONARY_URL =
-  import.meta.env.VITE_DICTIONARY_URL || 'http://127.0.0.1:4000'
+  import.meta.env.VITE_DICTIONARY_URL || '192.168.48.138:4001'
 
 let dictionaryName = localStorage.getItem('language')
 

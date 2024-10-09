@@ -59,7 +59,7 @@ const Container = styled.div<{ $variant: Variant }>`
   }
 `
 
-const homePage = import.meta.env.VITE_LINK_TO_HOME_PAGE as string | undefined
+const homePage = 'http://192.168.48.138:4001/' as string | undefined
 
 interface Properties {
   variant?: Variant
@@ -100,7 +100,7 @@ export const HeadBar: React.FC<Properties> = (properties) => {
   return (
     <Container $variant={properties.variant ?? 'blue'}>
       {homePage !== undefined && homePage !== '' ? (
-        <a href={homePage} className="romi-logo-container">
+        <a href={'http://192.168.48.138:4001/'} className="romi-logo-container">
           <RomiLogo className="romi-logo d-none d-sm-block" />
           <RomiIcon className="romi-icon d-block d-sm-none" />
         </a>

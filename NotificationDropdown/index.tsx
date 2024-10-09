@@ -119,7 +119,7 @@ const Notification: React.FC = () => {
 
   // Handle historical click
   const handleHistoricoClick = () => {
-    window.location.href = 'http://127.0.0.1:4000/'
+    window.location.href = 'http://192.168.48.138:4000/'
   }
 
   // Save user preferences
